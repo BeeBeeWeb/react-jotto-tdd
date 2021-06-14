@@ -4,7 +4,8 @@ import { checkProps, findByTestAttr } from '../../test/test.utils';
 import Input from './input.component';
 
 const defaultProps = {
-    secretWord: 'train'
+    secretWord: 'train',
+    success: false
 };
 
 const setup = (props = {}) => {
@@ -12,10 +13,53 @@ const setup = (props = {}) => {
     return shallow(<Input {...setupProps} />);
 };
 
-test('renders without errors', () => {
-    const wrapper = setup();
-    const component = findByTestAttr(wrapper, 'component-input');
-    expect(component.length).toBe(1);
+describe('render', () => {
+
+    describe('when success is true', () => {
+        let wrapper;
+
+        beforeEach(() => {
+            wrapper = setup({ success: true });
+        });
+
+        test('renders without error', () => {
+            const component = findByTestAttr(wrapper, 'component-input');
+            expect(component.length).toBe(1);
+        });
+
+        test('input box does not show', () => {
+            const inputBox = findByTestAttr(wrapper, 'input-box');
+            expect(inputBox.exists()).toBe(false);
+        });
+
+        test('submit button does not show', () => {
+            const submitBtn = findByTestAttr(wrapper, 'submit-button');
+            expect(submitBtn.exists()).toBe(false);
+        });
+    });
+
+    describe('when success is false', () => {
+        let wrapper;
+
+        beforeEach(() => {
+            wrapper = setup({ success: false });
+        });
+
+        test('renders without error', () => {
+            const component = findByTestAttr(wrapper, 'component-input');
+            expect(component.length).toBe(1);
+        });
+
+        test('input box shows', () => {
+            const inputBox = findByTestAttr(wrapper, 'input-box');
+            expect(inputBox.exists()).toBe(true);
+        });
+
+        test('submit button shows', () => {
+            const submitBtn = findByTestAttr(wrapper, 'submit-button');
+            expect(submitBtn.exists()).toBe(true);
+        });
+    });
 });
 
 test('does not throw error with expected props', () => {
