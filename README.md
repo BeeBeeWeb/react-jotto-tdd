@@ -13,7 +13,7 @@
 -  `moxios`
 
 This project is built using `create-react-app`
-Run `npm install` to get started
-Run `npm start` to run locally
-Run `npm test` to run the tests
+- Run `npm install` to get started
+- Run `npm start` to run locally
+- Run `npm test` to run the tests
 
